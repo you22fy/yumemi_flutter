@@ -12,7 +12,7 @@ class DetailPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Detail Page'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Detail Page'),
       ),
     );
