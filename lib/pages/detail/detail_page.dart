@@ -66,21 +66,18 @@ class DetailPage extends ConsumerWidget {
                   number: repositoryInfo.starsCount,
                   title: 'Star',
                 ),
-                const SizedBox(height: 4),
                 _DisplayNumberWithIcon(
                   iconData: Icons.remove_red_eye,
                   iconColor: Colors.blue,
                   number: repositoryInfo.watchersCount,
                   title: 'Watcher',
                 ),
-                const SizedBox(height: 4),
                 _DisplayNumberWithIcon(
                   iconData: Icons.call_split,
                   iconColor: Colors.green,
                   number: repositoryInfo.forksCount,
                   title: 'Fork',
                 ),
-                const SizedBox(height: 4),
                 _DisplayNumberWithIcon(
                   iconData: Icons.bug_report,
                   iconColor: Colors.red,
