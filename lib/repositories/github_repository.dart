@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:yumemi_flutter/models/repository_info.dart';
 import 'package:yumemi_flutter/repositories/api.dart';
 
@@ -12,7 +14,7 @@ class GithubRepository {
       const Duration(seconds: 30),
     );
     if (response == null) {
-      throw Exception('Failed To Fetch Repository Info');
+      throw const HttpException('Failed to fetch repositories info.');
     }
 
     final json = response.data as Map<String, dynamic>;
