@@ -2,7 +2,6 @@ class RepositoryInfo {
   final int id;
   final String name;
   final String fullName;
-  final String repositoryIconPath;
   final String? description;
   final String ownerIconPath;
   final String ownerName;
@@ -15,7 +14,6 @@ class RepositoryInfo {
     required this.id,
     required this.name,
     required this.fullName,
-    required this.repositoryIconPath,
     required this.description,
     required this.ownerIconPath,
     required this.ownerName,
@@ -31,7 +29,6 @@ class RepositoryInfo {
       id: json['id'] as int,
       name: json['name'] as String,
       fullName: json['full_name'] as String,
-      repositoryIconPath: json['owner']['avatar_url'] as String,
       description: json['description'] as String?,
       ownerIconPath: json['owner']['avatar_url'] as String,
       ownerName: json['owner']['login'] as String,

@@ -56,7 +56,7 @@ class SearchPage extends ConsumerWidget {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: RepositoryInfoTile(
-                      imagePath: repositoryInfo.repositoryIconPath,
+                      imagePath: repositoryInfo.ownerIconPath,
                       name: repositoryInfo.fullName,
                       description: repositoryInfo.description ?? '',
                       onPressed: () {
