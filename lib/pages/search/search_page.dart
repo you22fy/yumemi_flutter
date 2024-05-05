@@ -56,24 +56,21 @@ class SearchPage extends ConsumerWidget {
                 child: PagedListView.separated(
                   pagingController: controller.pagingController,
                   separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8),
+                      const Divider(height: 1),
                   builderDelegate: PagedChildBuilderDelegate(
                     itemBuilder: (context, item, index) {
                       final repositoryInfo = item as RepositoryInfo;
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: RepositoryInfoTile(
-                          imagePath: repositoryInfo.ownerIconPath,
-                          name: repositoryInfo.fullName,
-                          description: repositoryInfo.description ?? '',
-                          onPressed: () {
-                            context.push(
-                              '/detail',
-                              extra: repositoryInfo,
-                            );
-                            controller.pagingController.value.status;
-                          },
-                        ),
+                      return RepositoryInfoTile(
+                        imagePath: repositoryInfo.ownerIconPath,
+                        name: repositoryInfo.fullName,
+                        description: repositoryInfo.description ?? '',
+                        onPressed: () {
+                          context.push(
+                            '/detail',
+                            extra: repositoryInfo,
+                          );
+                          controller.pagingController.value.status;
+                        },
                       );
                     },
                     // 初回読み込み時にエラーが発生した場合このbuilderが呼ばれる
