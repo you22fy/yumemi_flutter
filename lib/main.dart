@@ -23,7 +23,7 @@ class MyApp extends ConsumerWidget {
       routerDelegate: goRouter.routerDelegate,
       routeInformationParser: goRouter.routeInformationParser,
       routeInformationProvider: goRouter.routeInformationProvider,
-      title: 'Flutter Demo',
+      title: 'GitHub Repositories Search App',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: themeMode,
