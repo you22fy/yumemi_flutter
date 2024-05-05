@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:yumemi_flutter/components/components.dart';
 import 'package:yumemi_flutter/models/repository_info.dart';
 
 /// 各リポジトリの詳細情報を表示するページ
@@ -60,25 +61,25 @@ class DetailPage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _DisplayNumberWithIcon(
+                DisplayNumberWithIcon(
                   iconData: Icons.star,
                   iconColor: Colors.amber,
                   number: repositoryInfo.starsCount,
                   title: 'Star',
                 ),
-                _DisplayNumberWithIcon(
+                DisplayNumberWithIcon(
                   iconData: Icons.remove_red_eye,
                   iconColor: Colors.blue,
                   number: repositoryInfo.watchersCount,
                   title: 'Watcher',
                 ),
-                _DisplayNumberWithIcon(
+                DisplayNumberWithIcon(
                   iconData: Icons.call_split,
                   iconColor: Colors.green,
                   number: repositoryInfo.forksCount,
                   title: 'Fork',
                 ),
-                _DisplayNumberWithIcon(
+                DisplayNumberWithIcon(
                   iconData: Icons.bug_report,
                   iconColor: Colors.red,
                   number: repositoryInfo.issuesCount,
@@ -89,42 +90,6 @@ class DetailPage extends ConsumerWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _DisplayNumberWithIcon extends StatelessWidget {
-  const _DisplayNumberWithIcon({
-    required this.iconData,
-    required this.iconColor,
-    required this.number,
-    required this.title,
-  });
-
-  final IconData iconData;
-  final Color iconColor;
-  final int number;
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Icon(
-          iconData,
-          color: iconColor,
-          size: 48,
-        ),
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14),
-        ),
-        Text(
-          number.toString(),
-          style: const TextStyle(fontSize: 21),
-        ),
-      ],
     );
   }
 }
