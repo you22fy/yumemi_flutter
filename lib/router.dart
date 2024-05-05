@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:yumemi_flutter/models/repository_info.dart';
 import 'package:yumemi_flutter/pages/detail/detail_page.dart';
 import 'package:yumemi_flutter/pages/search/search_page.dart';
 
@@ -22,7 +23,9 @@ final goRouter = GoRouter(
       pageBuilder: (context, state) {
         return MaterialPage(
           key: state.pageKey,
-          child: const DetailPage(),
+          child: DetailPage(
+            repositoryInfo: state.extra! as RepositoryInfo,
+          ),
         );
       },
     ),

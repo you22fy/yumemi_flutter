@@ -67,7 +67,10 @@ class SearchPage extends ConsumerWidget {
                           name: repositoryInfo.fullName,
                           description: repositoryInfo.description ?? '',
                           onPressed: () {
-                            context.push('/detail');
+                            context.push(
+                              '/detail',
+                              extra: repositoryInfo,
+                            );
                             controller.pagingController.value.status;
                           },
                         ),
