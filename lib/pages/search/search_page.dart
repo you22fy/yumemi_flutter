@@ -47,41 +47,94 @@ class SearchPage extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           Expanded(
-            child: PagedListView.separated(
-              pagingController: controller.pagingController,
-              separatorBuilder: (context, index) => const SizedBox(height: 8),
-              builderDelegate: PagedChildBuilderDelegate(
-                itemBuilder: (context, item, index) {
-                  final repositoryInfo = item as RepositoryInfo;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: RepositoryInfoTile(
-                      imagePath: repositoryInfo.ownerIconPath,
-                      name: repositoryInfo.fullName,
-                      description: repositoryInfo.description ?? '',
-                      onPressed: () {
-                        context.push('/detail');
-                      },
-                    ),
-                  );
-                },
-                // アイテムが1件もない場合このbuilderが呼ばれる
-                noItemsFoundIndicatorBuilder: (context) => const Center(
-                  child: Text('noItemsFoundIndicatorBuilder'),
-                ),
-                // 初回読み込み時にエラーが発生した場合このbuilderが呼ばれる
-                firstPageErrorIndicatorBuilder: (context) => const Center(
-                  child: Text('firstPageErrorIndicatorBuilder'),
-                ),
-                // 2ページ目以降の読み込み時にエラーが発生した場合このbuilderが呼ばれるÏ
-                newPageErrorIndicatorBuilder: (context) => const Center(
-                  child: Text('newPageErrorIndicatorBuilder'),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await notifier.startSearching();
+              },
+              child: PagedListView.separated(
+                pagingController: controller.pagingController,
+                separatorBuilder: (context, index) => const SizedBox(height: 8),
+                builderDelegate: PagedChildBuilderDelegate(
+                  itemBuilder: (context, item, index) {
+                    final repositoryInfo = item as RepositoryInfo;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: RepositoryInfoTile(
+                        imagePath: repositoryInfo.ownerIconPath,
+                        name: repositoryInfo.fullName,
+                        description: repositoryInfo.description ?? '',
+                        onPressed: () {
+                          context.push('/detail');
+                          controller.pagingController.value.status;
+                        },
+                      ),
+                    );
+                  },
+                  // 初回読み込み時にエラーが発生した場合このbuilderが呼ばれる
+                  firstPageErrorIndicatorBuilder: (context) {
+                    return _MessageWidget.hasError();
+                  },
+                  // 2ページ目以降の読み込み時にエラーが発生した場合このbuilderが呼ばれる
+                  newPageErrorIndicatorBuilder: (context) {
+                    return _MessageWidget.hasError();
+                  },
+                  // アイテムが1件もない場合このbuilderが呼ばれる
+                  noItemsFoundIndicatorBuilder: (context) {
+                    return _MessageWidget.noData();
+                  },
                 ),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MessageWidget extends StatelessWidget {
+  const _MessageWidget._({
+    required this.message,
+    required this.icon,
+  });
+
+  factory _MessageWidget.noData() {
+    return const _MessageWidget._(
+      message: 'No data found.\nPlease search other word.',
+      icon: Icon(
+        Icons.info_outline,
+        size: 48,
+        color: Colors.green,
+      ),
+    );
+  }
+
+  factory _MessageWidget.hasError() {
+    return const _MessageWidget._(
+      message: 'An error occurred.\nPlease try again.',
+      icon: Icon(
+        Icons.error_outline,
+        size: 48,
+        color: Colors.red,
+      ),
+    );
+  }
+
+  final String message;
+  final Icon icon;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(height: 64),
+        icon,
+        const SizedBox(height: 8),
+        Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

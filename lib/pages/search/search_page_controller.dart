@@ -36,15 +36,15 @@ class SearchPageController extends StateNotifier<SearchPageState> {
 
   /// 検索を開始する
   Future<void> startSearching() async {
+    if (state.pagingController.itemList != null &&
+        state.pagingController.itemList!.isNotEmpty) {
+      state.pagingController.itemList = [];
+    }
     state = state.copyWith(
       query: textEditingController.text,
     );
     if (state.query.isEmpty) {
       return;
-    }
-    if (state.pagingController.itemList != null &&
-        state.pagingController.itemList!.isNotEmpty) {
-      state.pagingController.itemList = [];
     }
 
     final data = await fetchRepositoriesInfo(0);
