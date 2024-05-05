@@ -20,43 +20,47 @@ class SearchPageController extends StateNotifier<SearchPageState> {
 
   SearchPageController(this.githubRepository)
       : super(SearchPageState.initial()) {
-    state.pagingController.addPageRequestListener((pageKey) async {
-      final repositoriesInfo = await fetchRepositoriesInfo(pageKey);
-      final isLastPage = repositoriesInfo.isEmpty;
-      if (isLastPage) {
-        state.pagingController.appendLastPage(repositoriesInfo);
-      } else {
-        final nextPageKey = pageKey + 1;
-        state.pagingController.appendPage(repositoriesInfo, nextPageKey);
-      }
-    });
+    state.pagingController.addPageRequestListener(
+      (pageKey) async {
+        final repositoriesInfo = await fetchRepositoriesInfo(pageKey);
+        final isLastPage = repositoriesInfo.isEmpty;
+        if (isLastPage) {
+          state.pagingController.appendLastPage(repositoriesInfo);
+        } else {
+          final nextPageKey = pageKey + 1;
+          state.pagingController.appendPage(repositoriesInfo, nextPageKey);
+        }
+      },
+    );
   }
 
+  /// 検索を開始する
   Future<void> startSearching() async {
-    if (textEditingController.text.isEmpty) {
+    state = state.copyWith(
+      query: textEditingController.text,
+    );
+    if (state.query.isEmpty) {
       return;
     }
-    state.copyWith(query: textEditingController.text);
+    if (state.pagingController.itemList != null &&
+        state.pagingController.itemList!.isNotEmpty) {
+      state.pagingController.itemList = [];
+    }
+
     final data = await fetchRepositoriesInfo(0);
     state.pagingController.appendPage(data, 1);
   }
 
   Future<List<RepositoryInfo>> fetchRepositoriesInfo(int page) async {
-    final query = textEditingController.text;
-    if (query.isEmpty) {
+    if (state.query.isEmpty) {
       return [];
     }
+
     final repositoriesInfo = await githubRepository.fetchRepositoryInfo(
-      query,
+      state.query,
       page: page,
     );
     return repositoriesInfo;
-  }
-
-  void clear() async {
-    state.copyWith(query: '');
-    textEditingController.clear();
-    state.pagingController.itemList?.clear();
   }
 }
 

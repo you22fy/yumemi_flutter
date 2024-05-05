@@ -65,6 +65,18 @@ class SearchPage extends ConsumerWidget {
                     ),
                   );
                 },
+                // アイテムが1件もない場合このbuilderが呼ばれる
+                noItemsFoundIndicatorBuilder: (context) => const Center(
+                  child: Text('noItemsFoundIndicatorBuilder'),
+                ),
+                // 初回読み込み時にエラーが発生した場合このbuilderが呼ばれる
+                firstPageErrorIndicatorBuilder: (context) => const Center(
+                  child: Text('firstPageErrorIndicatorBuilder'),
+                ),
+                // 2ページ目以降の読み込み時にエラーが発生した場合このbuilderが呼ばれるÏ
+                newPageErrorIndicatorBuilder: (context) => const Center(
+                  child: Text('newPageErrorIndicatorBuilder'),
+                ),
               ),
             ),
           ),
