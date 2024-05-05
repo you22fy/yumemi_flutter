@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yumemi_flutter/components/components.dart';
 import 'package:yumemi_flutter/models/repository_info.dart';
+import 'package:yumemi_flutter/providers/theme_mode_provider.dart';
 
 /// 各リポジトリの詳細情報を表示するページ
 /// リポジトリ名、オーナーアイコン、プロジェクト言語、Star数、Watcher数、Fork数、Issue数を表示する
@@ -20,6 +21,16 @@ class DetailPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(repositoryInfo.fullName),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ref.read(themeModeProvider.notifier).toggleTheme();
+            },
+            icon: ref.watch(themeModeProvider) == ThemeMode.light
+                ? const Icon(Icons.dark_mode_outlined)
+                : const Icon(Icons.light_mode),
+          ),
+        ],
       ),
       body: SizedBox(
         width: double.infinity,

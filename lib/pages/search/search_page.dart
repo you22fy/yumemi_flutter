@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:yumemi_flutter/models/repository_info.dart';
 import 'package:yumemi_flutter/pages/search/search_page_controller.dart';
+import 'package:yumemi_flutter/providers/theme_mode_provider.dart';
 import '../../components/components.dart';
 
 /// アプリのトップページになるウィジェット
@@ -19,6 +20,16 @@ class SearchPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Search Page'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ref.read(themeModeProvider.notifier).toggleTheme();
+            },
+            icon: ref.watch(themeModeProvider) == ThemeMode.light
+                ? const Icon(Icons.dark_mode_outlined)
+                : const Icon(Icons.light_mode),
+          ),
+        ],
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
