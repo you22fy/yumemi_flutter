@@ -6,8 +6,6 @@ import 'package:yumemi_flutter/providers/localize_provider.dart';
 import 'package:yumemi_flutter/providers/theme_mode_provider.dart';
 import 'package:github_language_colors/github_language_colors.dart';
 
-import '../../components/message_dialog.dart';
-
 /// 各リポジトリの詳細情報を表示するページ
 /// リポジトリ名、オーナーアイコン、プロジェクト言語、Star数、Watcher数、Fork数、Issue数を表示する
 ///
