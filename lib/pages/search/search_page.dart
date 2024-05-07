@@ -3,14 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:yumemi_flutter/components/message_dialog.dart';
-import 'package:yumemi_flutter/components/search_form.dart';
 import 'package:yumemi_flutter/models/repository_info.dart';
 import 'package:yumemi_flutter/pages/search/search_page_controller.dart';
 import 'package:yumemi_flutter/providers/theme_mode_provider.dart';
 import 'package:yumemi_flutter/providers/localize_provider.dart';
-import '../../components/components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../components/components.dart';
+
 
 /// アプリのトップページになるウィジェット
 /// リポジトリの検索と検索結果の表示を行う

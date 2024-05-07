@@ -6,6 +6,8 @@ import 'package:yumemi_flutter/providers/localize_provider.dart';
 import 'package:yumemi_flutter/providers/theme_mode_provider.dart';
 import 'package:github_language_colors/github_language_colors.dart';
 
+import '../../components/message_dialog.dart';
+
 /// 各リポジトリの詳細情報を表示するページ
 /// リポジトリ名、オーナーアイコン、プロジェクト言語、Star数、Watcher数、Fork数、Issue数を表示する
 ///
@@ -29,6 +31,22 @@ class DetailPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(repositoryInfo.fullName),
         actions: [
+          IconButton(
+            onPressed: () {
+              ref.read(languageProvider.notifier).setLanguage(
+                    ref.watch(languageProvider) == const Locale('en')
+                        ? Language.ja
+                        : Language.en,
+                  );
+              final message = ref.read(languageProvider) == const Locale('en')
+                  ? '言語設定を日本語にを変更しました'
+                  : 'Changed language setting to English';
+              showMessageDialog(context: context, text: message);
+            },
+            icon: const Icon(
+              Icons.language,
+            ),
+          ),
           IconButton(
             onPressed: () {
               ref.read(languageProvider.notifier).setLanguage(
