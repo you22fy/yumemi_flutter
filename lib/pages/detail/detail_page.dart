@@ -28,6 +28,7 @@ class DetailPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(repositoryInfo.fullName),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // FIXME: search_pageにも同様の実装があるので要共通化.
         actions: [
           // HACK: ２言語である前提の実装なのでリファクタした方が良い
