@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "searchPageTitle": "Search GitHub Repository",
+  "searchFormHintText": "Enter keyword to search...",
+  "noDataFound" : "No data found.\nPlease search other word.",
+  "errorOccurred" : "Error occurred.\nPlease try again later."
+}
