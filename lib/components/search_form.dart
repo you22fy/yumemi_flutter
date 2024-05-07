@@ -44,12 +44,15 @@ class SearchForm extends HookConsumerWidget {
               ),
               suffixIcon: IconButton(
                 icon: const Icon(Icons.clear),
-                onPressed: () {
-                  controller.clear();
-                },
+                onPressed: isLoading.value
+                    ? null
+                    : () {
+                        controller.clear();
+                      },
               ),
             ),
             controller: controller,
+            enabled: !isLoading.value,
             textInputAction: TextInputAction.search,
             onChanged: (value) => controller.text = value,
             onTapOutside: (_) => FocusNode().unfocus(),
