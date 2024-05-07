@@ -54,7 +54,6 @@ class SearchForm extends HookConsumerWidget {
             controller: controller,
             enabled: !isLoading.value,
             textInputAction: TextInputAction.search,
-            onChanged: (value) => controller.text = value,
             onTapOutside: (_) => FocusNode().unfocus(),
             onFieldSubmitted: onPressed == null
                 ? null
