@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:yumemi_flutter/components/message_dialog.dart';
 import 'package:yumemi_flutter/components/search_form.dart';
 import 'package:yumemi_flutter/models/repository_info.dart';
 import 'package:yumemi_flutter/pages/search/search_page_controller.dart';
@@ -33,6 +34,10 @@ class SearchPage extends ConsumerWidget {
                         ? Language.ja
                         : Language.en,
                   );
+              final message = ref.read(languageProvider) == const Locale('en')
+                  ? '言語設定を日本語にを変更しました'
+                  : 'Changed language setting to English';
+              showMessageDialog(context: context, text: message);
             },
             icon: const Icon(
               Icons.language,
