@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:yumemi_flutter/components/search_form.dart';
 import 'package:yumemi_flutter/models/repository_info.dart';
 import 'package:yumemi_flutter/pages/search/search_page_controller.dart';
 import 'package:yumemi_flutter/providers/theme_mode_provider.dart';
@@ -31,77 +33,60 @@ class SearchPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Search',
-                      ),
-                      controller: notifier.textEditingController,
-                      onChanged: (value) =>
-                          notifier.textEditingController.text = value,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      await notifier.startSearching();
-                    },
-                    child: const Text('検索'),
-                  )
-                ],
-              ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: SearchForm(
+              hintText: 'Search github repository',
+              controller: notifier.textEditingController,
+              onPressed: () async {
+                await notifier.startSearching();
+              },
             ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  await notifier.startSearching();
-                },
-                child: PagedListView.separated(
-                  pagingController: controller.pagingController,
-                  separatorBuilder: (context, index) =>
-                      const Divider(height: 1),
-                  builderDelegate: PagedChildBuilderDelegate(
-                    itemBuilder: (context, item, index) {
-                      final repositoryInfo = item as RepositoryInfo;
-                      return RepositoryInfoTile(
-                        imagePath: repositoryInfo.ownerIconPath,
-                        name: repositoryInfo.fullName,
-                        description: repositoryInfo.description ?? '',
-                        onPressed: () {
-                          context.push(
-                            '/detail',
-                            extra: repositoryInfo,
-                          );
-                          controller.pagingController.value.status;
-                        },
-                      );
-                    },
-                    // 初回読み込み時にエラーが発生した場合このbuilderが呼ばれる
-                    firstPageErrorIndicatorBuilder: (context) {
-                      return _MessageWidget.hasError();
-                    },
-                    // 2ページ目以降の読み込み時にエラーが発生した場合このbuilderが呼ばれる
-                    newPageErrorIndicatorBuilder: (context) {
-                      return _MessageWidget.hasError();
-                    },
-                    // アイテムが1件もない場合このbuilderが呼ばれる
-                    noItemsFoundIndicatorBuilder: (context) {
-                      return _MessageWidget.noData();
-                    },
-                  ),
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await notifier.startSearching();
+              },
+              child: PagedListView.separated(
+                pagingController: controller.pagingController,
+                separatorBuilder: (context, index) => const Divider(height: 1),
+                builderDelegate: PagedChildBuilderDelegate(
+                  itemBuilder: (context, item, index) {
+                    final repositoryInfo = item as RepositoryInfo;
+                    return RepositoryInfoTile(
+                      imagePath: repositoryInfo.ownerIconPath,
+                      name: repositoryInfo.fullName,
+                      description: repositoryInfo.description ?? '',
+                      onPressed: () {
+                        context.push(
+                          '/detail',
+                          extra: repositoryInfo,
+                        );
+                        controller.pagingController.value.status;
+                      },
+                    );
+                  },
+                  // 初回読み込み時にエラーが発生した場合このbuilderが呼ばれる
+                  firstPageErrorIndicatorBuilder: (context) {
+                    return _MessageWidget.hasError();
+                  },
+                  // 2ページ目以降の読み込み時にエラーが発生した場合このbuilderが呼ばれる
+                  newPageErrorIndicatorBuilder: (context) {
+                    return _MessageWidget.hasError();
+                  },
+                  // アイテムが1件もない場合このbuilderが呼ばれる
+                  noItemsFoundIndicatorBuilder: (context) {
+                    return _MessageWidget.noData();
+                  },
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
