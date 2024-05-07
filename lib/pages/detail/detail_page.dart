@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yumemi_flutter/components/components.dart';
 import 'package:yumemi_flutter/models/repository_info.dart';
 import 'package:yumemi_flutter/providers/theme_mode_provider.dart';
+import 'package:github_language_colors/github_language_colors.dart';
 
 /// 各リポジトリの詳細情報を表示するページ
 /// リポジトリ名、オーナーアイコン、プロジェクト言語、Star数、Watcher数、Fork数、Issue数を表示する
@@ -18,6 +19,11 @@ class DetailPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final langColorCode =
+        githubLanguageColors[repositoryInfo.projectLanguage ?? ''];
+    final langColor =
+        langColorCode != null ? Color(langColorCode) : Colors.grey;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(repositoryInfo.fullName),
@@ -62,11 +68,27 @@ class DetailPage extends ConsumerWidget {
               ),
             ),
             if (repositoryInfo.projectLanguage != null)
-              Text(
-                repositoryInfo.projectLanguage!,
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: langColor,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    repositoryInfo.projectLanguage!,
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
               ),
             const SizedBox(height: 16),
             Row(
