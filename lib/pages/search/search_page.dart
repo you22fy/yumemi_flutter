@@ -25,6 +25,7 @@ class SearchPage extends ConsumerWidget {
         title: Text(
           AppLocalizations.of(context)!.searchPageTitle,
         ),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // FIXME: detail_pageにも同様の実装があるので要共通化.
         actions: [
           // HACK: ２言語である前提の実装なのでリファクタした方が良い

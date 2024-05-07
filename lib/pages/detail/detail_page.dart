@@ -28,6 +28,7 @@ class DetailPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(repositoryInfo.fullName),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // FIXME: search_pageにも同様の実装があるので要共通化.
         actions: [
           // HACK: ２言語である前提の実装なのでリファクタした方が良い
@@ -42,18 +43,6 @@ class DetailPage extends ConsumerWidget {
                   ? '言語設定を日本語にを変更しました'
                   : 'Changed language setting to English';
               showMessageDialog(context: context, text: message);
-            },
-            icon: const Icon(
-              Icons.language,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              ref.read(languageProvider.notifier).setLanguage(
-                    ref.watch(languageProvider) == const Locale('en')
-                        ? Language.ja
-                        : Language.en,
-                  );
             },
             icon: const Icon(
               Icons.language,

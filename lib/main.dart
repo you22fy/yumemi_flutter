@@ -40,11 +40,20 @@ class MyApp extends ConsumerWidget {
       routerDelegate: goRouter.routerDelegate,
       routeInformationParser: goRouter.routeInformationParser,
       routeInformationProvider: goRouter.routeInformationProvider,
-      // テーマの設定
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      // ライトテーマの設定
+      theme: ThemeData(
+        colorSchemeSeed: Colors.indigo,
+        useMaterial3: true,
+        brightness: Brightness.light,
+      ),
+      // ダークテーマの設定
+      darkTheme: ThemeData(
+        colorSchemeSeed: Colors.indigo,
+        useMaterial3: true,
+        brightness: Brightness.dark,
+      ),
+      // テーマモードの設定
       themeMode: themeMode,
-
       title: 'GitHub Repositories Search App',
     );
   }
