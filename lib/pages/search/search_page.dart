@@ -53,6 +53,7 @@ class SearchPage extends ConsumerWidget {
               },
               child: PagedListView.separated(
                 pagingController: controller.pagingController,
+                scrollController: notifier.scrollController,
                 separatorBuilder: (context, index) => const Divider(height: 1),
                 builderDelegate: PagedChildBuilderDelegate(
                   itemBuilder: (context, item, index) {
@@ -87,6 +88,16 @@ class SearchPage extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          notifier.scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        },
+        child: const Icon(Icons.arrow_upward),
       ),
     );
   }

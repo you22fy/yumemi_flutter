@@ -17,6 +17,7 @@ class SearchPageController extends StateNotifier<SearchPageState> {
   final GithubRepository githubRepository;
 
   TextEditingController textEditingController = TextEditingController();
+  ScrollController scrollController = ScrollController();
 
   SearchPageController(this.githubRepository)
       : super(SearchPageState.initial()) {
