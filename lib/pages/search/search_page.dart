@@ -21,7 +21,7 @@ class SearchPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Page'),
+        title: const Text('Search GitHub Repository'),
         actions: [
           IconButton(
             onPressed: () {
