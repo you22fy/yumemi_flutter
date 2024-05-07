@@ -11,7 +11,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/components.dart';
 
-
 /// アプリのトップページになるウィジェット
 /// リポジトリの検索と検索結果の表示を行う
 class SearchPage extends ConsumerWidget {
@@ -26,7 +25,9 @@ class SearchPage extends ConsumerWidget {
         title: Text(
           AppLocalizations.of(context)!.searchPageTitle,
         ),
+        // FIXME: detail_pageにも同様の実装があるので要共通化.
         actions: [
+          // HACK: ２言語である前提の実装なのでリファクタした方が良い
           IconButton(
             onPressed: () {
               ref.read(languageProvider.notifier).setLanguage(
