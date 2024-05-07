@@ -24,7 +24,7 @@ class SearchPageController extends StateNotifier<SearchPageState> {
     state.pagingController.addPageRequestListener(
       (pageKey) async {
         final repositoriesInfo = await fetchRepositoriesInfo(pageKey);
-        final isLastPage = repositoriesInfo.isEmpty;
+        final isLastPage = repositoriesInfo.length < 30;
         if (isLastPage) {
           state.pagingController.appendLastPage(repositoriesInfo);
         } else {
@@ -48,8 +48,9 @@ class SearchPageController extends StateNotifier<SearchPageState> {
       return;
     }
 
-    final data = await fetchRepositoriesInfo(0);
-    state.pagingController.appendPage(data, 1);
+    // pageは1スタート
+    final data = await fetchRepositoriesInfo(1);
+    state.pagingController.appendPage(data, 2);
   }
 
   Future<List<RepositoryInfo>> fetchRepositoriesInfo(int page) async {
