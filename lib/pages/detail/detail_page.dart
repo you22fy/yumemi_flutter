@@ -49,18 +49,6 @@ class DetailPage extends ConsumerWidget {
           ),
           IconButton(
             onPressed: () {
-              ref.read(languageProvider.notifier).setLanguage(
-                    ref.watch(languageProvider) == const Locale('en')
-                        ? Language.ja
-                        : Language.en,
-                  );
-            },
-            icon: const Icon(
-              Icons.language,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
               ref.read(themeModeProvider.notifier).toggleTheme();
             },
             icon: ref.watch(themeModeProvider) == ThemeMode.light
