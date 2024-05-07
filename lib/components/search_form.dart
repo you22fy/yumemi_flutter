@@ -18,53 +18,47 @@ class SearchForm extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = useState(false);
 
-    return Row(
-      children: [
-        Expanded(
-          child: TextFormField(
-            decoration: InputDecoration(
-              hintText: hintText,
-              prefixIcon: IconButton(
-                icon: isLoading.value
-                    ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 1,
-                        ),
-                      )
-                    : const Icon(Icons.search),
-                onPressed: onPressed == null
-                    ? null
-                    : () async {
-                        isLoading.value = true;
-                        await onPressed!();
-                        isLoading.value = false;
-                      },
-              ),
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: isLoading.value
-                    ? null
-                    : () {
-                        controller.clear();
-                      },
-              ),
-            ),
-            controller: controller,
-            enabled: !isLoading.value,
-            textInputAction: TextInputAction.search,
-            onTapOutside: (_) => FocusNode().unfocus(),
-            onFieldSubmitted: onPressed == null
-                ? null
-                : (_) async {
-                    isLoading.value = true;
-                    await onPressed!();
-                    isLoading.value = false;
-                  },
-          ),
+    return TextFormField(
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: IconButton(
+          icon: isLoading.value
+              ? const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                  ),
+                )
+              : const Icon(Icons.search),
+          onPressed: onPressed == null
+              ? null
+              : () async {
+                  isLoading.value = true;
+                  await onPressed!();
+                  isLoading.value = false;
+                },
         ),
-      ],
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.clear),
+          onPressed: isLoading.value
+              ? null
+              : () {
+                  controller.clear();
+                },
+        ),
+      ),
+      controller: controller,
+      enabled: !isLoading.value,
+      textInputAction: TextInputAction.search,
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
+      onFieldSubmitted: onPressed == null
+          ? null
+          : (_) async {
+              isLoading.value = true;
+              await onPressed!();
+              isLoading.value = false;
+            },
     );
   }
 }
