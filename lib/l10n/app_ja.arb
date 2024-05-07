@@ -1,5 +1,7 @@
 {
   "@@locale": "ja",
   "searchPageTitle": "GitHubリポジトリ検索",
-  "searchFormHintText": "キーワードを入力してください..."
+  "searchFormHintText": "キーワードを入力してください...",
+  "noDataFound": "結果が見つかりませんでした.\n違うキーワードで再検索してください.",
+  "errorOccurred": "エラーが発生しました.\n再度お試しください."
 }
